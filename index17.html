@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐰奶茶兔抽獎派對🧋</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #9B704C;
+      --primary-light: #C8A27A;
+      --primary-dark: #6E472A;
+      --bg-milk-tea: #E8D9C8;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --accent-milk: #F3E9DD;
+      --accent-coral: #E76F51;
+      --accent-amber: #E9C46A;
+      --accent-gray: #E0D6CB;
+      --text-main: #4A3525;
+      --text-muted: #8C7565;
+      --danger: #D9534F;
+      --success: #52B788;
+      --shadow: 0 12px 32px rgba(110, 71, 42, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', 'PingFang TC', 'Microsoft JhengHei', cursive, sans-serif;
+      font-weight: 500;
+    }
+
+    body {
+      background-color: var(--bg-milk-tea);
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.65) 20%, transparent 20%);
+      background-size: 28px 28px;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 16px 80px;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.3s;
+    }
+
+    /* ========================================================
+       首頁 (Landing Page) 樣式
+       ======================================================== */
+    #landingPage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .landing-top-nav {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+
+    .landing-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: 10px 0 28px;
+      width: 100%;
+    }
+
+    .landing-bunny-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .landing-speech {
+      background: #FFFFFF;
+      border: 3px solid #D4B996;
+      border-radius: 24px;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--primary-dark);
+      box-shadow: 0 8px 24px rgba(155, 112, 76, 0.15);
+      max-width: 460px;
+      text-align: center;
+      position: relative;
+      margin-bottom: 14px;
+      animation: bubbleFloat 3s ease-in-out infinite;
+      line-height: 1.6;
+    }
+    .landing-speech::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #FFFFFF;
+    }
+    .landing-speech::before {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 12px solid #D4B996;
+    }
+
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    .mode-select-card {
+      background: linear-gradient(135deg, #C2A183 0%, #A98464 100%);
+      border: 2px solid #926F52;
+      border-radius: 20px;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(90, 58, 34, 0.18);
+      transition: all 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      user-select: none;
+    }
+    .mode-select-card:hover {
+      transform: translateY(-6px);
+      background: linear-gradient(135deg, #CBAC90 0%, #B48E6D 100%);
+      border-color: #6E472A;
+      box-shadow: 0 14px 28px rgba(90, 58, 34, 0.28);
+    }
+    .mode-card-icon {
+      font-size: 44px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+    .mode-card-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      text-shadow: 0 1px 2px rgba(60, 35, 18, 0.4);
+    }
+    .mode-card-desc {
+      font-size: 12px;
+      font-weight: 500;
+      color: #FAF2EB;
+      line-height: 1.5;
+    }
+
+    .features-intro-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      width: 100%;
+    }
+    .features-intro-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 700px) {
+      .features-list {
+        grid-template-columns: 1fr;
+      }
+    }
+    .feature-item {
+      background: #FFFBF6;
+      border: 1.5px solid var(--accent-milk);
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .feature-item-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .feature-item-text-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+    .feature-item-text-desc {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ========================================================
+       抽獎主工作區 (Lottery Workspace) 樣式
+       ======================================================== */
+    #lotteryWorkspace {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .top-navbar {
+      width: 100%;
+      max-width: 1360px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mode-nav-group {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 6px;
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(110, 71, 42, 0.08);
+      border: 1px solid rgba(200, 162, 122, 0.3);
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .mode-nav-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      user-select: none;
+    }
+    .mode-nav-btn:hover {
+      color: var(--primary-dark);
+      background: rgba(243, 233, 221, 0.5);
+    }
+    .mode-nav-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(155, 112, 76, 0.25);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav-action {
+      background: #FFFFFF;
+      border: 2px solid var(--primary-light);
+      color: var(--primary-dark);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(110, 71, 42, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-nav-action:hover {
+      background: var(--accent-milk);
+      transform: translateY(-1px);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 14px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 12px rgba(110, 71, 42, 0.08);
+      border: 1px solid rgba(200, 162, 122, 0.25);
+    }
+
+    h1.cute-title {
+      font-size: 36px;
+      color: var(--primary-dark);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.9), 0 4px 8px rgba(110, 71, 42, 0.1);
+    }
+
+    .bottom-volume-dock {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(110, 71, 42, 0.18);
+      border: 1px solid rgba(200, 162, 122, 0.3);
+      z-index: 999;
+      transition: all 0.2s ease;
+    }
+    .bottom-volume-dock:hover {
+      box-shadow: 0 10px 28px rgba(110, 71, 42, 0.25);
+      background: #FFFFFF;
+    }
+    .bottom-volume-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .bottom-volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 85px;
+      height: 6px;
+      border-radius: 5px;
+      background: #E8D9C8;
+      outline: none;
+      cursor: pointer;
+    }
+    .bottom-volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      transition: transform 0.1s;
+    }
+    .bottom-volume-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 340px 1fr 340px;
+      gap: 24px;
+      width: 100%;
+      max-width: 1360px;
+      transition: all 0.3s ease;
+    }
+
+    /* 手機版自適應樣式 */
+    body.mobile-view-active {
+      padding: 12px 10px 90px;
+    }
+    body.mobile-view-active #landingPage {
+      max-width: 390px;
+    }
+    body.mobile-view-active .landing-speech {
+      font-size: 13px;
+      max-width: 320px;
+    }
+    body.mobile-view-active .top-navbar {
+      max-width: 390px;
+      justify-content: center;
+    }
+    body.mobile-view-active .mode-nav-group {
+      width: 100%;
+      justify-content: center;
+    }
+    body.mobile-view-active .mode-nav-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+    body.mobile-view-active .main-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 390px;
+      width: 100%;
+      background: #FDFBF7;
+      padding: 16px;
+      border-radius: 36px;
+      border: 4px solid #DFCEBB;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    }
+    body.mobile-view-active .main-container > .card:nth-child(1) { order: 1 !important; }
+    body.mobile-view-active .main-container > .card:nth-child(2) { order: 2 !important; }
+    body.mobile-view-active .main-container > .card:nth-child(3) { order: 3 !important; }
+    body.mobile-view-active h1.cute-title { font-size: 28px; }
+    body.mobile-view-active .slot-machine-wrapper { transform: none; }
+    body.mobile-view-active .slot-machine-cabinet { width: 260px; }
+    body.mobile-view-active .wheel-container,
+    body.mobile-view-active #wheelCanvas { width: 270px; height: 270px; }
+    body.mobile-view-active .scratch-wrapper { width: 280px; }
+    body.mobile-view-active .bottom-volume-dock { right: 12px; bottom: 12px; padding: 6px 10px; }
+    body.mobile-view-active .bottom-volume-slider { width: 65px; }
+
+    @media (max-width: 1100px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .main-container > .card:nth-child(1) { order: 1; }
+      .main-container > .card:nth-child(2) { order: 2; }
+      .main-container > .card:nth-child(3) { order: 3; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .prizes-scroll-area {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .prize-item-card {
+      border: 2px solid var(--accent-milk);
+      border-radius: 16px;
+      padding: 12px;
+      background: #FFFAF4;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .prize-item-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    .prize-item-card.active {
+      border-color: var(--primary);
+      background: #FFF5EA;
+      box-shadow: 0 4px 12px rgba(155, 112, 76, 0.18);
+    }
+
+    .prize-item-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: linear-gradient(135deg, #B5845C, #9B704C);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(110, 71, 42, 0.25);
+      display: none;
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+    .prize-item-card.active .prize-item-badge {
+      display: block;
+    }
+
+    .prize-thumb {
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      object-fit: contain;
+      background: radial-gradient(circle, #FAF4ED 0%, #EFE4D6 100%);
+      border: 1px solid #E4D5C5;
+      flex-shrink: 0;
+      padding: 4px;
+    }
+
+    .prize-info {
+      flex: 1;
+      overflow: hidden;
+      padding-right: 70px;
+    }
+    .prize-level-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-coral);
+      background: #FEECEC;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+    }
+    .prize-info-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .prize-info-desc {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+    .prize-actions-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .btn-xs {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gray);
+      background: white;
+      color: var(--primary-dark);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .btn-xs:hover {
+      background: var(--accent-milk);
+    }
+    .btn-xs.danger:hover {
+      background: #FCE8E6;
+      border-color: #F5A9A4;
+      color: var(--danger);
+    }
+
+    .add-prize-btn {
+      border: 2px dashed var(--primary-light);
+      background: #FCF9F5;
+      color: var(--primary);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-prize-btn:hover {
+      background: #F8F1E7;
+      border-color: var(--primary);
+    }
+
+    .textarea-wrapper {
+      position: relative;
+      margin-top: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    textarea {
+      width: 100%;
+      height: 140px;
+      border-radius: 12px;
+      border: 1px solid var(--accent-gray);
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-main);
+      resize: vertical;
+      background: #FFFEFD;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(200, 162, 122, 0.2);
+    }
+    .count-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .stage-card {
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAF5EE 100%);
+      position: relative;
+      padding: 24px 20px 20px;
+      min-height: 520px;
+      justify-content: flex-start;
+    }
+
+    .stage-content-aligner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .current-prize-banner {
+      background: var(--accent-milk);
+      padding: 8px 20px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(155, 112, 76, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .current-prize-banner:hover {
+      transform: scale(1.02);
+    }
+    .current-prize-banner img {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    .current-prize-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 15px;
+    }
+
+    .lottery-mode-stage {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lottery-mode-stage.active {
+      display: flex;
+    }
+
+    /* 模式 1：拉霸機 */
+    .slot-machine-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 6px 0 16px;
+      position: relative;
+      transform: translateX(18px);
+    }
+    .slot-machine-cabinet {
+      background: #EFE4D6;
+      padding: 16px;
+      border-radius: 24px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.12), 0 8px 20px rgba(110, 71, 42, 0.15);
+      border: 4px solid #DFCEBB;
+      position: relative;
+      width: 320px;
+    }
+    .slot-window {
+      height: 120px;
+      background: #FFFFFF;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 8px 16px rgba(0,0,0,0.18);
+      border: 3px solid #D1BBA2;
+    }
+    .slot-center-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(231, 111, 81, 0.4);
+      z-index: 5;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .slot-center-line::before, .slot-center-line::after {
+      content: '▶';
+      position: absolute;
+      top: -9px;
+      left: 4px;
+      font-size: 13px;
+      color: var(--accent-coral);
+    }
+    .slot-center-line::after {
+      content: '◀';
+      left: auto;
+      right: 4px;
+    }
+    .slot-reel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+    }
+    .slot-item {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+      padding: 0 16px;
+      text-align: center;
+      word-break: break-all;
+    }
+    .lever-container {
+      width: 50px;
+      height: 160px;
+      position: relative;
+      margin-left: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .lever-base {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 48px;
+      background: linear-gradient(90deg, #948B81, #C7BFB6);
+      border-radius: 0 8px 8px 0;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+    }
+    .lever-arm {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      width: 12px;
+      height: 70px;
+      background: linear-gradient(90deg, #C5CBD3, #FFFFFF, #9BA3AE);
+      border-radius: 6px;
+      transform-origin: bottom center;
+      transform: translateY(-100%);
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
+    }
+    .lever-knob {
+      position: absolute;
+      top: -24px;
+      left: -9px;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle at 35% 35%, #FF7F50, #D9381E);
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .lever-container.pulled .lever-arm {
+      transform: translateY(0%) rotateX(60deg);
+    }
+
+    /* 模式 2：大轉盤 */
+    .wheel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 10px 0 20px;
+    }
+    #wheelCanvas {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      box-shadow: 0 10px 24px rgba(110, 71, 42, 0.2), inset 0 0 0 8px #DFCEBB;
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 28px solid var(--accent-coral);
+      z-index: 10;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+    .wheel-center-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 68px;
+      background: radial-gradient(circle, #FFFFFF 40%, #F5EDE3 100%);
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      cursor: pointer;
+      z-index: 12;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .wheel-center-btn:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    /* 模式 3：刮刮樂 */
+    .scratch-wrapper {
+      position: relative;
+      width: 320px;
+      height: 180px;
+      margin: 16px 0 24px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(110, 71, 42, 0.15);
+      border: 3px solid #DFCEBB;
+    }
+    .scratch-underlayer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #FFFDF9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .scratch-candidate-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-coral);
+    }
+    #scratchCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      z-index: 5;
+    }
+
+    /* 模式 4：開箱翻牌 */
+    .mystery-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 320px;
+      margin: 14px 0 24px;
+    }
+    .mystery-box-item {
+      background: #FFFAF4;
+      border: 2px solid var(--accent-milk);
+      border-radius: 16px;
+      padding: 16px 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .mystery-box-item:hover {
+      transform: translateY(-4px) scale(1.05);
+      border-color: var(--primary);
+      box-shadow: 0 8px 16px rgba(155, 112, 76, 0.2);
+    }
+    .mystery-box-icon {
+      font-size: 34px;
+      margin-bottom: 6px;
+    }
+    .mystery-box-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .lever-hint {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* 虛擬奶茶兔互動區塊 */
+    .bunny-interactive-zone {
+      margin-top: 14px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .bunny-speech-bubble {
+      background: #FFFFFF;
+      border: 2.5px solid #D4B996;
+      border-radius: 20px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary-dark);
+      box-shadow: 0 6px 16px rgba(155, 112, 76, 0.12);
+      max-width: 310px;
+      text-align: center;
+      position: relative;
+      margin-bottom: 12px;
+      animation: bubbleFloat 3s ease-in-out infinite;
+      line-height: 1.5;
+    }
+    .bunny-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid #FFFFFF;
+    }
+    .bunny-speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 9.5px solid transparent;
+      border-right: 9.5px solid transparent;
+      border-top: 10px solid #D4B996;
+    }
+
+    @keyframes bubbleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .bunny-character {
+      width: 150px;
+      height: 185px;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      user-select: none;
+      filter: drop-shadow(0 12px 20px rgba(110, 71, 42, 0.18));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .bunny-character:hover {
+      transform: scale(1.06);
+    }
+    .bunny-character.bounce {
+      animation: plushBounce 0.5s ease-in-out;
+    }
+
+    .bunny-character img.custom-bunny-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    @keyframes plushBounce {
+      0% { transform: scale(1) translateY(0); }
+      30% { transform: scale(1.15, 0.85) translateY(4px); }
+      60% { transform: scale(0.9, 1.15) translateY(-18px); }
+      80% { transform: scale(1.05, 0.95) translateY(0); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    .bunny-action-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .bunny-sub-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .upload-bunny-btn {
+      font-size: 11px;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 500;
+      background: none;
+      border: none;
+    }
+
+    .tabs-header {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--accent-milk);
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: var(--accent-milk);
+      color: var(--primary-dark);
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .winner-pane {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+    .winner-pane.active {
+      display: flex;
+    }
+
+    .winner-list-scroll {
+      flex: 1;
+      max-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+
+    .winner-pill {
+      background: #FFFDF9;
+      border: 1px solid #EBDBCB;
+      padding: 10px 14px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .disqualified-section {
+      margin-top: 16px;
+      border-top: 1px dashed var(--accent-gray);
+      padding-top: 12px;
+    }
+    .disqualified-title {
+      font-size: 13px;
+      color: var(--danger);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .disqualified-list {
+      max-height: 120px;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .absent-tag {
+      background: #FEECEC;
+      color: #B02A37;
+      border: 1px solid #F8D7DA;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .export-btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .btn-outline {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--primary-light);
+      background: white;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: var(--accent-milk);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(43, 31, 23, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-card {
+      background: white;
+      border-radius: 24px;
+      max-width: 540px;
+      width: 100%;
+      padding: 28px 24px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      position: relative;
+      animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .transparent-preview-box {
+      width: 100%;
+      height: 180px;
+      border-radius: 16px;
+      margin: 14px 0;
+      border: 1px dashed #D1BBA2;
+      background-color: #FAFAFA;
+      background-image: 
+        linear-gradient(45deg, #EFEFEF 25%, transparent 25%), 
+        linear-gradient(-45deg, #EFEFEF 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #EFEFEF 75%), 
+        linear-gradient(-45deg, transparent 75%, #EFEFEF 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .transparent-preview-box img {
+      max-height: 160px;
+      max-width: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--accent-gray);
+      font-size: 13px;
+      font-weight: 500;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-generate-ai {
+      background: linear-gradient(135deg, #E9C46A, #E76F51);
+      color: white;
+      border: none;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 6px;
+      box-shadow: 0 4px 10px rgba(231, 111, 81, 0.2);
+      transition: all 0.2s;
+    }
+    .btn-generate-ai:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-full {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-absent {
+      background: #FEECEC;
+      color: var(--danger);
+      border: 1px solid #F8D7DA;
+    }
+    .btn-absent:hover {
+      background: #FCE8E6;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- 右下角音量控制懸浮條 -->
+  <div class="bottom-volume-dock">
+    <button class="bottom-volume-btn" id="volumeBtn" title="靜音/取消靜音">🔊</button>
+    <input type="range" min="0" max="1" step="0.05" value="0.8" class="bottom-volume-slider" id="volumeSlider" title="音量調節">
+  </div>
+
+  <!-- ========================================================
+       1. 歡迎首頁區塊 (Landing Page)
+       ======================================================== -->
+  <div id="landingPage">
+    <div class="landing-top-nav">
+      <button class="btn-nav-action" id="landingDeviceSwitchBtn">
+        📱 切換手機版
+      </button>
+    </div>
+
+    <header class="landing-hero">
+      <div class="brand-tag">🐰奶茶兔抽獎派對🧋</div>
+      <h1 class="cute-title" style="margin-bottom: 12px;">歡迎來到奶茶兔抽獎派對！</h1>
+
+      <div class="landing-bunny-zone">
+        <div class="landing-speech">
+          哈囉！我是奶茶兔 🐰 歡迎來到今天的活動現場！<br>
+          我們為大家準備了 4 種超有趣的抽獎模式，<br>
+          今天想用哪一種方式抽出幸運得主呢？請點選下方卡片開始吧！👇✨
+        </div>
+        
+        <div class="bunny-character" id="landingBunnyAvatar" style="width: 135px; height: 165px;" title="點我戳一下～">
+          <svg viewBox="0 0 170 200" width="100%" height="100%">
+            <defs>
+              <radialGradient id="rabbitBodyGradLanding" cx="45%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#FFFDF9"/>
+                <stop offset="50%" stop-color="#F5E6D6"/>
+                <stop offset="85%" stop-color="#DEBFA1"/>
+                <stop offset="100%" stop-color="#BF9873"/>
+              </radialGradient>
+              <linearGradient id="earInnerGradLanding" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFD6D0"/>
+                <stop offset="100%" stop-color="#F7A499"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="28" cy="154" rx="15" ry="14" fill="#FFFFFF" stroke="#8C6242" stroke-width="2.5"/>
+            <g transform="rotate(-10 65 75)">
+              <path d="M 52 75 C 44 45, 46 8, 62 2 C 78 8, 78 45, 72 75 Z" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M 56 68 C 50 44, 52 14, 62 8 C 72 14, 72 44, 68 68 Z" fill="url(#earInnerGradLanding)"/>
+            </g>
+            <g transform="rotate(12 105 75)">
+              <path d="M 98 75 C 92 45, 92 8, 108 2 C 124 8, 126 45, 118 75 Z" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M 102 68 C 98 44, 98 14, 108 8 C 118 14, 120 44, 114 68 Z" fill="url(#earInnerGradLanding)"/>
+            </g>
+            <path d="M 52 118 C 34 134, 32 165, 54 180 C 74 192, 96 192, 116 180 C 138 165, 136 134, 118 118 Z" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="3.2"/>
+            <ellipse cx="85" cy="154" rx="28" ry="24" fill="#FFFFFF"/>
+            <g transform="translate(45, 172) rotate(-10)">
+              <ellipse cx="0" cy="0" rx="15" ry="10" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="2.5"/>
+              <circle cx="0" cy="1" r="5" fill="#F8B1A8"/>
+            </g>
+            <g transform="translate(125, 172) rotate(10)">
+              <ellipse cx="0" cy="0" rx="15" ry="10" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="2.5"/>
+              <circle cx="0" cy="1" r="5" fill="#F8B1A8"/>
+            </g>
+            <ellipse cx="85" cy="94" rx="45" ry="36" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="3.2"/>
+            <circle cx="54" cy="104" r="13" fill="#F9A398" opacity="0.65"/>
+            <circle cx="116" cy="104" r="13" fill="#F9A398" opacity="0.65"/>
+            <ellipse cx="65" cy="92" rx="7" ry="8.5" fill="#3A2012"/>
+            <circle cx="67.5" cy="89" r="3" fill="#FFFFFF"/>
+            <ellipse cx="105" cy="92" rx="7" ry="8.5" fill="#3A2012"/>
+            <circle cx="107.5" cy="89" r="3" fill="#FFFFFF"/>
+            <ellipse cx="85" cy="102" rx="14" ry="9" fill="#FFFDF9"/>
+            <polygon points="85,99 82,95 88,95" fill="#E76F51"/>
+            <path d="M 80 103 Q 85 105 85 100 Q 85 105 90 103" stroke="#5A3A22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <g transform="translate(74, 126)">
+              <path d="M 2 8 L 4 33 Q 11 37 18 33 L 20 8 Z" fill="#E2C7B0" stroke="#5C3B24" stroke-width="2"/>
+              <ellipse cx="11" cy="8" rx="9" ry="3.5" fill="#FAF5EF" stroke="#5C3B24" stroke-width="2"/>
+              <line x1="15" y1="-3" x2="9" y2="12" stroke="#E76F51" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="7" cy="28" r="2.4" fill="#3D2517"/>
+              <circle cx="14" cy="29" r="2.4" fill="#3D2517"/>
+            </g>
+            <ellipse cx="64" cy="132" rx="11" ry="8" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="2.5" transform="rotate(22 64 132)"/>
+            <ellipse cx="106" cy="132" rx="11" ry="8" fill="url(#rabbitBodyGradLanding)" stroke="#8C6242" stroke-width="2.5" transform="rotate(-22 106 132)"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <div class="modes-grid">
+      <div class="mode-select-card" onclick="enterMode('slot')">
+        <div class="mode-card-icon">🎰</div>
+        <div class="mode-card-title">拉霸機模式</div>
+        <div class="mode-card-desc">
+          經典實體動態拉桿<br>
+          流暢滾動音效與緩衝定格<br>
+          營造滿滿儀式感
+        </div>
+      </div>
+
+      <div class="mode-select-card" onclick="enterMode('wheel')">
+        <div class="mode-card-icon">🎡</div>
+        <div class="mode-card-title">大轉盤模式</div>
+        <div class="mode-card-desc">
+          智慧等分候選名單扇區<br>
+          指針清脆嗒嗒聲旋轉減速<br>
+          全場屏息以待的緊張感
+        </div>
+      </div>
+
+      <div class="mode-select-card" onclick="enterMode('scratch')">
+        <div class="mode-card-icon">✨</div>
+        <div class="mode-card-title">刮刮樂模式</div>
+        <div class="mode-card-desc">
+          純金奶茶塗層表面<br>
+          手指或滑鼠親手刮開銀漆<br>
+          驚喜逐步現身的互動感
+        </div>
+      </div>
+
+      <div class="mode-select-card" onclick="enterMode('boxes')">
+        <div class="mode-card-icon">📦</div>
+        <div class="mode-card-title">開箱翻牌模式</div>
+        <div class="mode-card-desc">
+          多個神秘幸運盲盒禮物箱<br>
+          點擊搖晃開箱爆彩帶<br>
+          充滿趣味的盲選揭曉
+        </div>
+      </div>
+    </div>
+
+    <div class="features-intro-box">
+      <div class="features-intro-title">
+        <span>💡 我們的系統特色介紹</span>
+      </div>
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-item-icon">🎨</div>
+          <div class="feature-item-text">
+            <div class="feature-item-text-title">智慧生成去背產品圖</div>
+            <div class="feature-item-text-desc">輸入獎品名稱與等級，系統純前端自動繪製專屬立體透明去背圖示，免外連離線可用。</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🎁</div>
+          <div class="feature-item-text">
+            <div class="feature-item-text-title">自由自訂多個獎品</div>
+            <div class="feature-item-text-desc">支援新增特獎、加碼獎等多個獎項，可自由切換欲抽取獎品，得主名單依獎品獨立分頁清晰記錄。</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🚫</div>
+          <div class="feature-item-text">
+            <div class="feature-item-text-title">不在現場棄權防呆</div>
+            <div class="feature-item-text-desc">得主抽中後若不在現場，一鍵棄權並自動列入無效名單，永久排除不再重複抽出。</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">💾</div>
+          <div class="feature-item-text">
+            <div class="feature-item-text-title">瀏覽器自動保存與匯出</div>
+            <div class="feature-item-text-desc">名單與抽獎狀態使用 LocalStorage 自動暫存，重新整理不遺失，支援一鍵複製完整得獎清單。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       2. 抽獎主工作區 (Lottery Workspace)
+       ======================================================== -->
+  <div id="lotteryWorkspace">
+    
+    <div class="top-navbar">
+      <div class="mode-nav-group">
+        <button class="mode-nav-btn active" data-mode="slot">🎰 拉霸機</button>
+        <button class="mode-nav-btn" data-mode="wheel">🎡 大轉盤</button>
+        <button class="mode-nav-btn" data-mode="scratch">✨ 刮刮樂</button>
+        <button class="mode-nav-btn" data-mode="boxes">📦 開箱翻牌</button>
+      </div>
+      
+      <div class="nav-actions">
+        <!-- 已更改為「回首頁」 -->
+        <button class="btn-nav-action" id="backToHomeBtn">
+          🏠 回首頁
+        </button>
+        <button class="btn-nav-action" id="deviceSwitchBtn">
+          📱 切換手機版
+        </button>
+      </div>
+    </div>
+
+    <header>
+      <div class="brand-tag">🐰奶茶兔抽獎派對🧋</div>
+      <h1 class="cute-title" id="pageMainTitle">拉霸機模式</h1>
+    </header>
+
+    <div class="main-container">
+      
+      <!-- 卡片 1：獎品清單與名單輸入 -->
+      <div class="card">
+        <div class="card-title">
+          <span>🎁 獎品清單 (<span id="prizeCount">0</span>)</span>
+        </div>
+
+        <div class="prizes-scroll-area" id="prizesContainer"></div>
+
+        <button class="add-prize-btn" id="openAddPrizeBtn" style="margin-top: 12px;">
+          <span>＋ 新增獎品欄位</span>
+        </button>
+
+        <div class="textarea-wrapper" style="margin-top: 20px;">
+          <div class="card-title" style="margin-bottom: 6px;">
+            <span>👥 抽獎名單</span>
+          </div>
+          <textarea id="nameInput" placeholder="請將參加者名單貼在此處，一行一人..."></textarea>
+          <div class="count-label">
+            <span>待抽人數：<span id="eligibleCount">0</span> 人</span>
+            <span style="cursor: pointer; color: var(--primary);" id="insertSampleNames">載入示範名單</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 2：抽獎主舞台 -->
+      <div class="card stage-card">
+        <div class="stage-content-aligner">
+          <div class="current-prize-banner" id="currentPrizeBanner" title="點擊檢視獎品資訊">
+            <img id="stagePrizeImg" src="" alt="去背產品圖">
+            <div>
+              <span style="font-size: 11px; color: var(--text-muted); display: block;">目前正在抽取：</span>
+              <span class="current-prize-title" id="stagePrizeName">請先新增獎品</span>
+            </div>
+          </div>
+
+          <!-- 模式 1：拉霸機舞台 -->
+          <div class="lottery-mode-stage active" id="stageSlot">
+            <div class="slot-machine-wrapper">
+              <div class="slot-machine-cabinet">
+                <div class="slot-window">
+                  <div class="slot-center-line"></div>
+                  <div class="slot-reel" id="slotReel">
+                    <div class="slot-item">準備抽獎</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lever-container" id="slotLever">
+                <div class="lever-base"></div>
+                <div class="lever-arm">
+                  <div class="lever-knob"></div>
+                </div>
+              </div>
+            </div>
+            <div class="lever-hint">👉 點擊拉桿或空白鍵啟動拉霸機</div>
+          </div>
+
+          <!-- 模式 2：大轉盤舞台 -->
+          <div class="lottery-mode-stage" id="stageWheel">
+            <div class="wheel-container">
+              <div class="wheel-pointer"></div>
+              <canvas id="wheelCanvas" width="600" height="600"></canvas>
+              <div class="wheel-center-btn" id="spinWheelBtn">GO!</div>
+            </div>
+            <div class="lever-hint">👉 點擊中間「GO!」轉動大轉盤</div>
+          </div>
+
+          <!-- 模式 3：刮刮樂舞台 -->
+          <div class="lottery-mode-stage" id="stageScratch">
+            <div class="scratch-wrapper">
+              <div class="scratch-underlayer">
+                <span style="font-size: 12px; color: var(--text-muted);">✨ 幸運中獎者 ✨</span>
+                <span class="scratch-candidate-name" id="scratchWinnerName">請點刷新</span>
+              </div>
+              <canvas id="scratchCanvas" width="320" height="180"></canvas>
+            </div>
+            <button class="btn-xs" id="resetScratchBtn" style="padding: 6px 14px; font-weight: bold;">🔄 重發一張刮刮樂</button>
+            <div class="lever-hint" style="margin-top: 8px;">👉 用滑鼠或手指刮開金色塗層！</div>
+          </div>
+
+          <!-- 模式 4：開箱翻牌舞台 -->
+          <div class="lottery-mode-stage" id="stageBoxes">
+            <div class="mystery-boxes-grid" id="mysteryBoxesGrid"></div>
+            <div class="lever-hint">👉 點擊任意幸運禮物箱翻牌揭曉！</div>
+          </div>
+
+          <!-- 虛擬奶茶兔角色 -->
+          <div class="bunny-interactive-zone">
+            <div class="bunny-speech-bubble" id="bunnySpeech">
+              我的大長耳動了動～接收到好運訊號囉！🐰✨
+            </div>
+            
+            <div class="bunny-character" id="bunnyAvatar" title="摸摸我頭頂的大長耳朵～">
+              <svg id="defaultBunnySvg" viewBox="0 0 170 200" width="100%" height="100%">
+                <defs>
+                  <radialGradient id="rabbitBodyGrad" cx="45%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#FFFDF9"/>
+                    <stop offset="50%" stop-color="#F5E6D6"/>
+                    <stop offset="85%" stop-color="#DEBFA1"/>
+                    <stop offset="100%" stop-color="#BF9873"/>
+                  </radialGradient>
+                  <linearGradient id="earInnerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFD6D0"/>
+                    <stop offset="100%" stop-color="#F7A499"/>
+                  </linearGradient>
+                  <radialGradient id="rabbitBellyGrad" cx="50%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="70%" stop-color="#FAF1E6"/>
+                    <stop offset="100%" stop-color="#EADBCE"/>
+                  </radialGradient>
+                </defs>
+
+                <ellipse cx="28" cy="154" rx="15" ry="14" fill="#FFFFFF" stroke="#8C6242" stroke-width="2.5"/>
+
+                <g transform="rotate(-10 65 75)">
+                  <path d="M 52 75 C 44 45, 46 8, 62 2 C 78 8, 78 45, 72 75 Z" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M 56 68 C 50 44, 52 14, 62 8 C 72 14, 72 44, 68 68 Z" fill="url(#earInnerGrad)"/>
+                </g>
+
+                <g transform="rotate(12 105 75)">
+                  <path d="M 98 75 C 92 45, 92 8, 108 2 C 124 8, 126 45, 118 75 Z" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M 102 68 C 98 44, 98 14, 108 8 C 118 14, 120 44, 114 68 Z" fill="url(#earInnerGrad)"/>
+                </g>
+
+                <path d="M 52 118 C 34 134, 32 165, 54 180 C 74 192, 96 192, 116 180 C 138 165, 136 134, 118 118 Z" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="3.2"/>
+                <ellipse cx="85" cy="154" rx="28" ry="24" fill="#FFFFFF"/>
+
+                <g transform="translate(45, 172) rotate(-10)">
+                  <ellipse cx="0" cy="0" rx="15" ry="10" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="2.5"/>
+                  <circle cx="0" cy="1" r="5" fill="#F8B1A8"/>
+                </g>
+                <g transform="translate(125, 172) rotate(10)">
+                  <ellipse cx="0" cy="0" rx="15" ry="10" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="2.5"/>
+                  <circle cx="0" cy="1" r="5" fill="#F8B1A8"/>
+                </g>
+
+                <ellipse cx="85" cy="94" rx="45" ry="36" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="3.2"/>
+                <circle cx="54" cy="104" r="13" fill="#F9A398" opacity="0.65"/>
+                <circle cx="116" cy="104" r="13" fill="#F9A398" opacity="0.65"/>
+
+                <ellipse cx="65" cy="92" rx="7" ry="8.5" fill="#3A2012"/>
+                <circle cx="67.5" cy="89" r="3" fill="#FFFFFF"/>
+                <circle cx="63" cy="96" r="1.5" fill="#FFFFFF"/>
+                <ellipse cx="105" cy="92" rx="7" ry="8.5" fill="#3A2012"/>
+                <circle cx="107.5" cy="89" r="3" fill="#FFFFFF"/>
+                <circle cx="103" cy="96" r="1.5" fill="#FFFFFF"/>
+
+                <ellipse cx="85" cy="102" rx="14" ry="9" fill="#FFFDF9" opacity="0.95"/>
+                <polygon points="85,99 82,95 88,95" fill="#E76F51"/>
+                <path d="M 80 103 Q 85 105 85 100 Q 85 105 90 103" stroke="#5A3A22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+                <g transform="translate(74, 126)">
+                  <path d="M 2 8 L 4 33 Q 11 37 18 33 L 20 8 Z" fill="#E2C7B0" stroke="#5C3B24" stroke-width="2"/>
+                  <ellipse cx="11" cy="8" rx="9" ry="3.5" fill="#FAF5EF" stroke="#5C3B24" stroke-width="2"/>
+                  <line x1="15" y1="-3" x2="9" y2="12" stroke="#E76F51" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="7" cy="28" r="2.4" fill="#3D2517"/>
+                  <circle cx="14" cy="29" r="2.4" fill="#3D2517"/>
+                </g>
+
+                <ellipse cx="64" cy="132" rx="11" ry="8" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="2.5" transform="rotate(22 64 132)"/>
+                <ellipse cx="106" cy="132" rx="11" ry="8" fill="url(#rabbitBodyGrad)" stroke="#8C6242" stroke-width="2.5" transform="rotate(-22 106 132)"/>
+              </svg>
+            </div>
+
+            <div class="bunny-action-links">
+              <span class="bunny-sub-hint">（戳戳我說說話）</span>
+              <span style="color: var(--accent-gray);">|</span>
+              <button class="upload-bunny-btn" id="uploadBunnyTrigger">📷 更換兔子圖片</button>
+              <input type="file" id="bunnyFileInput" accept="image/*" style="display: none;">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 卡片 3：得主獨立分頁展示 -->
+      <div class="card">
+        <div class="card-title">
+          <span>🏆 獎項得主名單</span>
+        </div>
+
+        <div class="tabs-header" id="prizeTabsHeader"></div>
+        <div id="prizePanesContainer" style="flex: 1; display: flex; flex-direction: column;"></div>
+
+        <div class="disqualified-section">
+          <div class="disqualified-title">
+            <span>🚫 不在現場（棄權無效）</span>
+            <span id="disqualifiedCount" style="font-size: 11px; font-weight: normal; color: var(--text-muted);">(0人)</span>
+          </div>
+          <div class="disqualified-list" id="disqualifiedContainer">
+            <span style="color: #999; font-size: 11px;">無棄權紀錄</span>
+          </div>
+        </div>
+
+        <div class="export-btns">
+          <button class="btn-outline" id="copyWinnersBtn">📋 複製全部名單</button>
+          <button class="btn-outline" id="resetAllBtn" style="color: var(--danger); border-color: #F8D7DA;">重設活動</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 彈窗：新增/編輯獎品 -->
+  <div class="modal-overlay" id="prizeModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('prizeModal')">✕</button>
+      <h3 style="color: var(--primary-dark); font-size: 18px; margin-bottom: 12px; font-weight: 900;" id="prizeModalTitle">編輯獎品</h3>
+      
+      <div class="transparent-preview-box">
+        <img id="prizePreview" src="" alt="透明去背產品預覽">
+      </div>
+
+      <div class="form-group">
+        <label>獎品等級 / 獎項類別</label>
+        <input type="text" id="inputPrizeLevel" class="form-control" placeholder="請直接輸入，例如：特獎、加碼獎、早鳥獎...">
+      </div>
+      
+      <div class="form-group">
+        <label>獎品名稱</label>
+        <input type="text" id="inputPrizeName" class="form-control" placeholder="例如：奶茶兔聯名保溫杯、無線耳機、咖啡機">
+      </div>
+
+      <div class="form-group">
+        <label>獎品備註說明（選填）</label>
+        <input type="text" id="inputPrizeDesc" class="form-control" placeholder="簡短規格或說明文字">
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="btn-generate-ai" id="generateImageBtn">
+          ✨ 依據獎品名稱生成「去背產品圖片」
+        </button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-full btn-primary" id="savePrizeBtn">儲存獎品</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 彈窗：中獎得主揭曉 -->
+  <div class="modal-overlay" id="winnerModal">
+    <div class="modal-card">
+      <span style="font-size: 46px;">🎉</span>
+      <h3 style="color: var(--primary-dark); font-size: 22px; margin-top: 6px; font-weight: 900;">恭喜幸運得主！</h3>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500;" id="modalPrizeSubtitle">獲獎項目</p>
+
+      <div style="background: #FFF8F0; border: 2.5px dashed var(--primary-light); padding: 24px 16px; border-radius: 20px; margin: 18px 0;">
+        <div style="font-size: 56px; font-weight: 900; color: var(--accent-coral); letter-spacing: 2px; line-height: 1.2; word-break: break-all;" id="winnerNameDisplay">-</div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-full btn-absent" id="markAbsentBtn">🏃‍♂️ 不在現場（棄權重抽）</button>
+        <button class="btn-full btn-primary" id="confirmWinnerBtn">確認得獎</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 導航切換：首頁與抽獎工作區 */
+    const landingPage = document.getElementById('landingPage');
+    const lotteryWorkspace = document.getElementById('lotteryWorkspace');
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+
+    function enterMode(mode) {
+      playLeverSound();
+      landingPage.style.display = 'none';
+      lotteryWorkspace.style.display = 'flex';
+      setLotteryMode(mode);
+    }
+
+    backToHomeBtn.addEventListener('click', () => {
+      playTickSound();
+      lotteryWorkspace.style.display = 'none';
+      landingPage.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* 虛擬奶茶兔互動說話與換圖模組 */
+    const bunnySpeech = document.getElementById('bunnySpeech');
+    const bunnyAvatar = document.getElementById('bunnyAvatar');
+    const landingBunnyAvatar = document.getElementById('landingBunnyAvatar');
+    const uploadBunnyTrigger = document.getElementById('uploadBunnyTrigger');
+    const bunnyFileInput = document.getElementById('bunnyFileInput');
+
+    const randomGreetings = [
+      '頭頂長耳朵豎得高高～把今日份的幸運傳送給你！🐰✨',
+      '嗚哇！摸到我的兔耳朵惹，軟綿綿好舒服～(◍•ᴗ•◍)💕',
+      '嚼嚼嚼…黑糖珍珠好 Q 彈！抽獎交給兔兔準沒錯！🧋',
+      '長耳朵動了動～聽到了得獎者開心的歡呼聲囉！🎉',
+      '手握微甜熱奶茶，今天每位參加者都是小幸運星！⭐'
+    ];
+
+    function bunnySay(text, bounce = true) {
+      if (!bunnySpeech) return;
+      bunnySpeech.textContent = text;
+      if (bounce && bunnyAvatar) {
+        bunnyAvatar.classList.remove('bounce');
+        void bunnyAvatar.offsetWidth;
+        bunnyAvatar.classList.add('bounce');
+      }
+    }
+
+    bunnyAvatar.addEventListener('click', () => {
+      playTickSound();
+      const pick = randomGreetings[Math.floor(Math.random() * randomGreetings.length)];
+      bunnySay(pick, true);
+    });
+
+    if (landingBunnyAvatar) {
+      landingBunnyAvatar.addEventListener('click', () => {
+        playTickSound();
+        landingBunnyAvatar.classList.remove('bounce');
+        void landingBunnyAvatar.offsetWidth;
+        landingBunnyAvatar.classList.add('bounce');
+      });
+    }
+
+    uploadBunnyTrigger.addEventListener('click', () => {
+      bunnyFileInput.click();
+    });
+
+    bunnyFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const customUrl = event.target.result;
+        state.customBunnyUrl = customUrl;
+        saveState();
+        applyCustomBunny(customUrl);
+        bunnySay('哇～換上全新的兔兔插畫啦！超可愛～🐰✨');
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function applyCustomBunny(url) {
+      if (!url) return;
+      bunnyAvatar.innerHTML = `<img src="${url}" class="custom-bunny-img" alt="奶茶兔插畫">`;
+      if (landingBunnyAvatar) {
+        landingBunnyAvatar.innerHTML = `<img src="${url}" class="custom-bunny-img" alt="奶茶兔插畫">`;
+      }
+    }
+
+    /* 音效系統 (Web Audio API 合成) */
+    let audioCtx = null;
+    let masterVolume = 0.8;
+    let isMuted = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function getEffectiveVolume() {
+      return isMuted ? 0 : masterVolume;
+    }
+
+    function playLeverSound() {
+      const vol = getEffectiveVolume();
+      if (vol <= 0) return;
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.25 * vol, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01 * vol, audioCtx.currentTime + 0.15);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.15);
+    }
+
+    function playTickSound() {
+      const vol = getEffectiveVolume();
+      if (vol <= 0) return;
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(650, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.08 * vol, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.04);
+    }
+
+    function playWinSound() {
+      const vol = getEffectiveVolume();
+      if (vol <= 0) return;
+      initAudio();
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.1);
+        gain.gain.setValueAtTime(0.25 * vol, audioCtx.currentTime + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.1 + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + idx * 0.1);
+        osc.stop(audioCtx.currentTime + idx * 0.1 + 0.4);
+      });
+    }
+
+    /* 純透明去背產品插畫生成器 */
+    function generateTransparentProductImage(prizeName) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 400;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 400, 400);
+      const name = (prizeName || '').toLowerCase();
+
+      if (name.includes('杯') || name.includes('壺') || name.includes('瓶') || name.includes('咖啡') || name.includes('茶')) {
+        drawMugOrBottle(ctx);
+      } else if (name.includes('耳機') || name.includes('音響') || name.includes('喇叭')) {
+        drawHeadphones(ctx);
+      } else if (name.includes('錶') || name.includes('watch') || name.includes('環')) {
+        drawSmartWatch(ctx);
+      } else if (name.includes('機') || name.includes('phone') || name.includes('平板') || name.includes('pad')) {
+        drawSmartphone(ctx);
+      } else if (name.includes('相機') || name.includes('鏡頭') || name.includes('camera')) {
+        drawCamera(ctx);
+      } else if (name.includes('券') || name.includes('卡') || name.includes('禮券')) {
+        drawGiftCard(ctx);
+      } else {
+        drawLuxuryGiftBox(ctx);
+      }
+
+      return canvas.toDataURL('image/png');
+    }
+
+    function drawMugOrBottle(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.14)';
+      ctx.beginPath();
+      ctx.ellipse(200, 360, 65, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const grad = ctx.createLinearGradient(140, 100, 260, 100);
+      grad.addColorStop(0, '#E6D3C1');
+      grad.addColorStop(0.3, '#FFF7EE');
+      grad.addColorStop(0.7, '#CBB29B');
+      grad.addColorStop(1, '#977A60');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect(145, 120, 110, 220, [14, 14, 26, 26]);
+      ctx.fill();
+
+      const metal = ctx.createLinearGradient(140, 95, 260, 95);
+      metal.addColorStop(0, '#B0885E');
+      metal.addColorStop(0.5, '#FDEEDC');
+      metal.addColorStop(1, '#8B643D');
+      ctx.fillStyle = metal;
+      ctx.beginPath();
+      ctx.roundRect(140, 92, 120, 30, [10, 10, 4, 4]);
+      ctx.fill();
+
+      ctx.fillStyle = '#6E472A';
+      ctx.beginPath();
+      ctx.roundRect(160, 65, 80, 30, [14, 14, 4, 4]);
+      ctx.fill();
+
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(200, 64, 22, Math.PI, 0);
+      ctx.stroke();
+    }
+
+    function drawHeadphones(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.beginPath();
+      ctx.ellipse(200, 360, 80, 15, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = '#6E472A';
+      ctx.lineWidth = 18;
+      ctx.beginPath();
+      ctx.arc(200, 190, 100, Math.PI, 0);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#D4B996';
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(200, 190, 92, Math.PI * 0.85, Math.PI * 0.15, true);
+      ctx.stroke();
+
+      [90, 270].forEach((x, idx) => {
+        const earGrad = ctx.createLinearGradient(x, 190, x + 40, 290);
+        earGrad.addColorStop(0, '#FFFFFF');
+        earGrad.addColorStop(0.5, '#C8A27A');
+        earGrad.addColorStop(1, '#563821');
+        ctx.fillStyle = earGrad;
+        ctx.beginPath();
+        ctx.roundRect(x, 190, 40, 100, 20);
+        ctx.fill();
+
+        ctx.fillStyle = '#4A3525';
+        ctx.beginPath();
+        ctx.roundRect(idx === 0 ? x + 24 : x - 10, 200, 26, 80, 12);
+        ctx.fill();
+      });
+    }
+
+    function drawSmartWatch(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.beginPath();
+      ctx.ellipse(200, 360, 65, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const strapGrad = ctx.createLinearGradient(165, 40, 235, 360);
+      strapGrad.addColorStop(0, '#C8A27A');
+      strapGrad.addColorStop(0.5, '#DEC0A2');
+      strapGrad.addColorStop(1, '#9B704C');
+      ctx.fillStyle = strapGrad;
+      ctx.beginPath();
+      ctx.roundRect(165, 45, 70, 310, 14);
+      ctx.fill();
+
+      const caseGrad = ctx.createLinearGradient(130, 130, 270, 270);
+      caseGrad.addColorStop(0, '#FFE8D6');
+      caseGrad.addColorStop(0.5, '#DDA15E');
+      caseGrad.addColorStop(1, '#6E472A');
+      ctx.fillStyle = caseGrad;
+      ctx.beginPath();
+      ctx.roundRect(140, 140, 120, 130, 28);
+      ctx.fill();
+
+      ctx.fillStyle = '#1A1817';
+      ctx.beginPath();
+      ctx.roundRect(148, 148, 104, 114, 22);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(175, 175, 15, Math.PI, Math.PI * 1.5);
+      ctx.stroke();
+
+      ctx.fillStyle = '#DDA15E';
+      ctx.beginPath();
+      ctx.roundRect(260, 175, 8, 25, 4);
+      ctx.fill();
+    }
+
+    function drawSmartphone(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.14)';
+      ctx.beginPath();
+      ctx.ellipse(200, 360, 75, 15, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const frameGrad = ctx.createLinearGradient(125, 60, 275, 340);
+      frameGrad.addColorStop(0, '#D6C0B3');
+      frameGrad.addColorStop(0.5, '#FFFFFF');
+      frameGrad.addColorStop(1, '#7C5C43');
+      ctx.fillStyle = frameGrad;
+      ctx.beginPath();
+      ctx.roundRect(132, 65, 136, 275, 28);
+      ctx.fill();
+
+      ctx.fillStyle = '#1B1714';
+      ctx.beginPath();
+      ctx.roundRect(138, 71, 124, 263, 24);
+      ctx.fill();
+
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.roundRect(180, 80, 40, 10, 5);
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.beginPath();
+      ctx.moveTo(138, 120);
+      ctx.lineTo(262, 220);
+      ctx.lineTo(262, 260);
+      ctx.lineTo(138, 160);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function drawCamera(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.14)';
+      ctx.beginPath();
+      ctx.ellipse(200, 345, 95, 16, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#E8DFD5';
+      ctx.beginPath();
+      ctx.roundRect(100, 140, 200, 160, 18);
+      ctx.fill();
+
+      ctx.fillStyle = '#7C5C43';
+      ctx.beginPath();
+      ctx.roundRect(100, 190, 200, 110, [0, 0, 18, 18]);
+      ctx.fill();
+
+      ctx.fillStyle = '#4A3525';
+      ctx.beginPath();
+      ctx.arc(200, 220, 56, 0, Math.PI * 2);
+      ctx.fill();
+
+      const lensGrad = ctx.createRadialGradient(190, 210, 8, 200, 220, 48);
+      lensGrad.addColorStop(0, '#5A7280');
+      lensGrad.addColorStop(0.7, '#1B242A');
+      lensGrad.addColorStop(1, '#0F1316');
+      ctx.fillStyle = lensGrad;
+      ctx.beginPath();
+      ctx.arc(200, 220, 46, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#B0885E';
+      ctx.beginPath();
+      ctx.roundRect(125, 126, 26, 15, [4, 4, 0, 0]);
+      ctx.fill();
+    }
+
+    function drawGiftCard(ctx) {
+      ctx.save();
+      ctx.translate(200, 200);
+      ctx.rotate(-8 * Math.PI / 180);
+
+      ctx.fillStyle = 'rgba(0,0,0,0.16)';
+      ctx.beginPath();
+      ctx.roundRect(-125, -60, 260, 160, 16);
+      ctx.fill();
+
+      const cardGrad = ctx.createLinearGradient(-130, -75, 130, 75);
+      cardGrad.addColorStop(0, '#FFE8B6');
+      cardGrad.addColorStop(0.3, '#E5B869');
+      cardGrad.addColorStop(0.7, '#B38234');
+      cardGrad.addColorStop(1, '#FCE8B3');
+      ctx.fillStyle = cardGrad;
+      ctx.beginPath();
+      ctx.roundRect(-130, -75, 260, 150, 16);
+      ctx.fill();
+
+      ctx.fillStyle = '#F4E0A5';
+      ctx.strokeStyle = '#8E6728';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect(-95, -35, 45, 35, 6);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawLuxuryGiftBox(ctx) {
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.beginPath();
+      ctx.ellipse(200, 360, 90, 18, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const boxGrad = ctx.createLinearGradient(110, 140, 290, 320);
+      boxGrad.addColorStop(0, '#F5EDE3');
+      boxGrad.addColorStop(0.5, '#DFC8B0');
+      boxGrad.addColorStop(1, '#A07855');
+      ctx.fillStyle = boxGrad;
+      ctx.beginPath();
+      ctx.roundRect(110, 160, 180, 175, [8, 8, 22, 22]);
+      ctx.fill();
+
+      const lidGrad = ctx.createLinearGradient(100, 120, 300, 170);
+      lidGrad.addColorStop(0, '#FAF5EF');
+      lidGrad.addColorStop(1, '#CDB094');
+      ctx.fillStyle = lidGrad;
+      ctx.beginPath();
+      ctx.roundRect(100, 125, 200, 48, 12);
+      ctx.fill();
+
+      const ribbonGrad = ctx.createLinearGradient(180, 125, 220, 335);
+      ribbonGrad.addColorStop(0, '#FF7556');
+      ribbonGrad.addColorStop(1, '#C9361C');
+      ctx.fillStyle = ribbonGrad;
+      ctx.fillRect(182, 125, 36, 210);
+
+      ctx.fillRect(100, 215, 200, 30);
+
+      ctx.beginPath();
+      ctx.arc(165, 110, 25, 0, Math.PI * 2);
+      ctx.arc(235, 110, 25, 0, Math.PI * 2);
+      ctx.fillStyle = '#E74C3C';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(200, 116, 15, 0, Math.PI * 2);
+      ctx.fillStyle = '#B82816';
+      ctx.fill();
+    }
+
+    /* 資料狀態管理 */
+    const STORAGE_KEY = 'milktea_bunny_lottery_v20';
+
+    let state = {
+      currentMode: 'slot',
+      isMobileView: false,
+      customBunnyUrl: null,
+      prizes: [],
+      currentPrizeId: null,
+      winners: {},
+      absentList: [],
+      namesRaw: ''
+    };
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          state = JSON.parse(saved);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      if (!state.currentMode) state.currentMode = 'slot';
+
+      if (!state.prizes || state.prizes.length === 0) {
+        const defaultImg = generateTransparentProductImage('奶茶兔聯名保溫杯');
+        state.prizes = [
+          {
+            id: 'prize_' + Date.now(),
+            level: '特獎',
+            name: '奶茶兔聯名保溫杯',
+            desc: '限量紀念款 500ml 溫潤奶茶色',
+            img: defaultImg
+          }
+        ];
+      }
+
+      if (!state.currentPrizeId && state.prizes.length > 0) {
+        state.currentPrizeId = state.prizes[0].id;
+      }
+      if (!state.winners) state.winners = {};
+      if (!state.absentList) state.absentList = [];
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function getAllInputNames() {
+      return state.namesRaw
+        .split('\n')
+        .map(n => n.trim())
+        .filter(n => n.length > 0);
+    }
+
+    function getAllWonNames() {
+      const all = [];
+      Object.values(state.winners).forEach(arr => {
+        if (Array.isArray(arr)) all.push(...arr);
+      });
+      return all;
+    }
+
+    function getEligibleCandidates() {
+      const allInput = getAllInputNames();
+      const won = new Set(getAllWonNames());
+      const absent = new Set(state.absentList);
+      return allInput.filter(name => !won.has(name) && !absent.has(name));
+    }
+
+    /* DOM 元素與初始化 */
+    const pageMainTitle = document.getElementById('pageMainTitle');
+    const prizesContainer = document.getElementById('prizesContainer');
+    const prizeCountSpan = document.getElementById('prizeCount');
+    const nameInput = document.getElementById('nameInput');
+    const eligibleCount = document.getElementById('eligibleCount');
+    const stagePrizeBanner = document.getElementById('currentPrizeBanner');
+    const stagePrizeImg = document.getElementById('stagePrizeImg');
+    const stagePrizeName = document.getElementById('stagePrizeName');
+    const prizeTabsHeader = document.getElementById('prizeTabsHeader');
+    const prizePanesContainer = document.getElementById('prizePanesContainer');
+    const disqualifiedContainer = document.getElementById('disqualifiedContainer');
+    const disqualifiedCount = document.getElementById('disqualifiedCount');
+    const deviceSwitchBtn = document.getElementById('deviceSwitchBtn');
+    const landingDeviceSwitchBtn = document.getElementById('landingDeviceSwitchBtn');
+
+    let currentEditingPrizeId = null;
+    let pendingWinnerName = null;
+    let isSpinning = false;
+
+    function updateDeviceView() {
+      if (state.isMobileView) {
+        document.body.classList.add('mobile-view-active');
+        if (deviceSwitchBtn) deviceSwitchBtn.textContent = '💻 切換電腦版';
+        if (landingDeviceSwitchBtn) landingDeviceSwitchBtn.textContent = '💻 切換電腦版';
+        bunnySay('切換成手機版囉！獎品清單移到拉霸機上面啦～📱');
+      } else {
+        document.body.classList.remove('mobile-view-active');
+        if (deviceSwitchBtn) deviceSwitchBtn.textContent = '📱 切換手機版';
+        if (landingDeviceSwitchBtn) landingDeviceSwitchBtn.textContent = '📱 切換手機版';
+        bunnySay('切換回電腦版寬螢幕囉！視野更寬廣～💻');
+      }
+    }
+
+    function toggleDeviceView() {
+      state.isMobileView = !state.isMobileView;
+      saveState();
+      updateDeviceView();
+      if (state.currentMode === 'wheel') renderWheel();
+    }
+
+    if (deviceSwitchBtn) deviceSwitchBtn.addEventListener('click', toggleDeviceView);
+    if (landingDeviceSwitchBtn) landingDeviceSwitchBtn.addEventListener('click', toggleDeviceView);
+
+    const modeConfigs = {
+      slot: { title: '拉霸機模式', stageId: 'stageSlot', greeting: '拉霸機模式就緒！用力拉動拉桿吧～🎰' },
+      wheel: { title: '大轉盤模式', stageId: 'stageWheel', greeting: '大轉盤轉起來～看看今天誰最幸運！🎡' },
+      scratch: { title: '刮刮樂模式', stageId: 'stageScratch', greeting: '刮刮樂超刺激的！快用手指刮開看看～✨' },
+      boxes: { title: '開箱翻牌模式', stageId: 'stageBoxes', greeting: '這幾個幸運箱子裡都有大驚喜喔！快選一個！📦' }
+    };
+
+    function setLotteryMode(mode) {
+      state.currentMode = mode;
+      saveState();
+
+      document.querySelectorAll('.mode-nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+
+      pageMainTitle.textContent = modeConfigs[mode].title;
+
+      document.querySelectorAll('.lottery-mode-stage').forEach(stage => {
+        stage.classList.remove('active');
+      });
+      document.getElementById(modeConfigs[mode].stageId).classList.add('active');
+
+      if (mode === 'wheel') renderWheel();
+      if (mode === 'scratch') prepareScratchCard();
+      if (mode === 'boxes') renderMysteryBoxes();
+
+      bunnySay(modeConfigs[mode].greeting);
+    }
+
+    document.querySelectorAll('.mode-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (isSpinning) return;
+        setLotteryMode(btn.dataset.mode);
+      });
+    });
+
+    function renderAll() {
+      renderPrizes();
+      renderStageBanner();
+      renderWinnerPanes();
+      renderAbsentList();
+      updateCandidatesCount();
+
+      if (state.currentMode === 'wheel') renderWheel();
+      if (state.currentMode === 'boxes') renderMysteryBoxes();
+    }
+
+    function renderPrizes() {
+      prizeCountSpan.textContent = state.prizes.length;
+      prizesContainer.innerHTML = '';
+
+      state.prizes.forEach(prize => {
+        const card = document.createElement('div');
+        card.className = `prize-item-card ${prize.id === state.currentPrizeId ? 'active' : ''}`;
+        card.innerHTML = `
+          <div class="prize-item-badge">正在抽取</div>
+          <img class="prize-thumb" src="${prize.img}" alt="${prize.name}">
+          <div class="prize-info">
+            <span class="prize-level-tag">${prize.level || '獎項'}</span>
+            <div class="prize-info-title">${prize.name}</div>
+            <div class="prize-info-desc">${prize.desc || '暫無說明'}</div>
+            <div class="prize-actions-row">
+              <button class="btn-xs edit-prize-btn" data-id="${prize.id}">編輯</button>
+              ${state.prizes.length > 1 ? `<button class="btn-xs danger delete-prize-btn" data-id="${prize.id}">刪除</button>` : ''}
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          state.currentPrizeId = prize.id;
+          saveState();
+          renderAll();
+          bunnySay(`現在要抽取的是【${prize.name}】，祝大家好運！🎁`);
+        });
+
+        prizesContainer.appendChild(card);
+      });
+
+      prizesContainer.querySelectorAll('.edit-prize-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openEditPrizeModal(btn.dataset.id);
+        });
+      });
+
+      prizesContainer.querySelectorAll('.delete-prize-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm('確定要刪除此獎品嗎？該獎品的得獎紀錄也會被清除。')) {
+            deletePrize(btn.dataset.id);
+          }
+        });
+      });
+    }
+
+    function renderStageBanner() {
+      const cur = state.prizes.find(p => p.id === state.currentPrizeId);
+      if (cur) {
+        stagePrizeImg.src = cur.img;
+        stagePrizeName.textContent = `【${cur.level || '獎項'}】${cur.name}`;
+        stagePrizeBanner.style.display = 'inline-flex';
+      } else {
+        stagePrizeBanner.style.display = 'none';
+      }
+    }
+
+    function renderWinnerPanes() {
+      prizeTabsHeader.innerHTML = '';
+      prizePanesContainer.innerHTML = '';
+
+      state.prizes.forEach((prize) => {
+        const tabBtn = document.createElement('button');
+        tabBtn.className = `tab-btn ${prize.id === state.currentPrizeId ? 'active' : ''}`;
+        const winnersCount = (state.winners[prize.id] || []).length;
+        tabBtn.textContent = `${prize.level || ''} ${prize.name} (${winnersCount})`;
+        tabBtn.addEventListener('click', () => {
+          state.currentPrizeId = prize.id;
+          saveState();
+          renderAll();
+        });
+        prizeTabsHeader.appendChild(tabBtn);
+
+        const pane = document.createElement('div');
+        pane.className = `winner-pane ${prize.id === state.currentPrizeId ? 'active' : ''}`;
+        const winList = state.winners[prize.id] || [];
+
+        if (winList.length === 0) {
+          pane.innerHTML = `
+            <div style="text-align: center; color: var(--text-muted); font-size: 13px; margin: auto; padding: 30px 0; font-weight: 500;">
+              尚未抽出【${prize.name}】得主<br>點選開始抽獎！
+            </div>
+          `;
+        } else {
+          const listScroll = document.createElement('div');
+          listScroll.className = 'winner-list-scroll';
+
+          winList.forEach((winner, wIdx) => {
+            const pill = document.createElement('div');
+            pill.className = 'winner-pill';
+            pill.innerHTML = `
+              <span>得主 #${wIdx + 1}：${winner}</span>
+              <button class="btn-xs danger remove-winner-btn" data-prize="${prize.id}" data-index="${wIdx}">移除</button>
+            `;
+            listScroll.appendChild(pill);
+          });
+          pane.appendChild(listScroll);
+        }
+        prizePanesContainer.appendChild(pane);
+      });
+
+      prizePanesContainer.querySelectorAll('.remove-winner-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pid = btn.dataset.prize;
+          const widx = parseInt(btn.dataset.index, 10);
+          state.winners[pid].splice(widx, 1);
+          saveState();
+          renderAll();
+          bunnySay('已將該得主移除，重新回到候選名單囉！');
+        });
+      });
+    }
+
+    function renderAbsentList() {
+      disqualifiedCount.textContent = `(${state.absentList.length}人)`;
+      if (state.absentList.length === 0) {
+        disqualifiedContainer.innerHTML = '<span style="color: #999; font-size: 11px;">無棄權紀錄</span>';
+      } else {
+        disqualifiedContainer.innerHTML = state.absentList.map(name => `
+          <span class="absent-tag" title="不在現場棄權">${name}</span>
+        `).join('');
+      }
+    }
+
+    function updateCandidatesCount() {
+      const cand = getEligibleCandidates();
+      eligibleCount.textContent = cand.length;
+    }
+
+    /* 模式 1：拉霸機滾動 */
+    const slotReel = document.getElementById('slotReel');
+    const slotLever = document.getElementById('slotLever');
+
+    function triggerSpinSlot() {
+      if (isSpinning) return;
+      const candidates = getEligibleCandidates();
+      if (candidates.length === 0) {
+        alert('名單中已無符合資格的待抽參加者！');
+        bunnySay('名單已經空囉！請先在名單框加入參加者名單～🐰');
+        return;
+      }
+      const curPrize = state.prizes.find(p => p.id === state.currentPrizeId);
+      if (!curPrize) {
+        alert('請先選擇要抽取的獎品！');
+        return;
+      }
+
+      isSpinning = true;
+      bunnySay(`喀噠！拉霸機高速轉動中～長耳朵在發光！🙏✨`);
+
+      playLeverSound();
+      slotLever.classList.add('pulled');
+      setTimeout(() => slotLever.classList.remove('pulled'), 350);
+
+      const winnerIndex = Math.floor(Math.random() * candidates.length);
+      const chosenWinner = candidates[winnerIndex];
+      pendingWinnerName = chosenWinner;
+
+      const reelNames = [];
+      for (let i = 0; i < 28; i++) {
+        reelNames.push(candidates[Math.floor(Math.random() * candidates.length)]);
+      }
+      reelNames.push(chosenWinner);
+      slotReel.innerHTML = reelNames.map(n => `<div class="slot-item">${n}</div>`).join('');
+
+      const itemHeight = 120;
+      const totalDistance = (reelNames.length - 1) * itemHeight;
+      const duration = 3200;
+      const startTime = performance.now();
+      let lastTickTime = 0;
+
+      function animateReel(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const currentY = ease * totalDistance;
+
+        slotReel.style.transform = `translateY(-${currentY}px)`;
+
+        if (currentTime - lastTickTime > (80 + progress * 240)) {
+          playTickSound();
+          lastTickTime = currentTime;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(animateReel);
+        } else {
+          isSpinning = false;
+          handleWin(curPrize, chosenWinner);
+        }
+      }
+      requestAnimationFrame(animateReel);
+    }
+    slotLever.addEventListener('click', triggerSpinSlot);
+
+    /* 模式 2：大轉盤 */
+    const wheelCanvas = document.getElementById('wheelCanvas');
+    const wheelCtx = wheelCanvas.getContext('2d');
+    const spinWheelBtn = document.getElementById('spinWheelBtn');
+    let currentWheelAngle = 0;
+
+    function renderWheel() {
+      const candidates = getEligibleCandidates();
+      const numSegments = Math.max(candidates.length, 1);
+      const arc = (2 * Math.PI) / numSegments;
+      const colors = ['#F9EBE0', '#DEC0A2', '#F4A261', '#E76F51', '#C8A27A', '#E9C46A'];
+
+      wheelCtx.clearRect(0, 0, 600, 600);
+      wheelCtx.save();
+      wheelCtx.translate(300, 300);
+      wheelCtx.rotate(currentWheelAngle);
+
+      for (let i = 0; i < numSegments; i++) {
+        const angle = i * arc;
+        wheelCtx.beginPath();
+        wheelCtx.fillStyle = colors[i % colors.length];
+        wheelCtx.moveTo(0, 0);
+        wheelCtx.arc(0, 0, 290, angle, angle + arc);
+        wheelCtx.lineTo(0, 0);
+        wheelCtx.fill();
+        wheelCtx.stroke();
+
+        wheelCtx.save();
+        wheelCtx.rotate(angle + arc / 2);
+        wheelCtx.textAlign = 'right';
+        wheelCtx.fillStyle = '#4A3525';
+        wheelCtx.font = '500 22px Zen Maru Gothic, sans-serif';
+        const label = candidates[i] || '待抽中';
+        wheelCtx.fillText(label.length > 8 ? label.substring(0, 7) + '…' : label, 260, 8);
+        wheelCtx.restore();
+      }
+      wheelCtx.restore();
+    }
+
+    function triggerSpinWheel() {
+      if (isSpinning) return;
+      const candidates = getEligibleCandidates();
+      if (candidates.length === 0) {
+        alert('名單中已無符合資格的待抽參加者！');
+        bunnySay('沒有名單可以轉啦！快補充一些人進來～');
+        return;
+      }
+      const curPrize = state.prizes.find(p => p.id === state.currentPrizeId);
+      if (!curPrize) {
+        alert('請先選擇要抽取的獎品！');
+        return;
+      }
+
+      isSpinning = true;
+      bunnySay(`大轉盤轉起來惹！指針會停在誰那裡呢？🎡`);
+      playLeverSound();
+
+      const winnerIndex = Math.floor(Math.random() * candidates.length);
+      const chosenWinner = candidates[winnerIndex];
+      pendingWinnerName = chosenWinner;
+
+      const numSegments = candidates.length;
+      const arc = (2 * Math.PI) / numSegments;
+      const targetAngle = (3 * Math.PI / 2) - (winnerIndex * arc + arc / 2);
+      const extraRounds = (5 + Math.floor(Math.random() * 3)) * (2 * Math.PI);
+      const totalRotation = extraRounds + (targetAngle - (currentWheelAngle % (2 * Math.PI)) + 2 * Math.PI);
+
+      const startAngle = currentWheelAngle;
+      const duration = 4000;
+      const startTime = performance.now();
+      let lastTickAngle = 0;
+
+      function animateWheel(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 4);
+        currentWheelAngle = startAngle + totalRotation * ease;
+
+        renderWheel();
+
+        if (currentWheelAngle - lastTickAngle > (arc / 2)) {
+          playTickSound();
+          lastTickAngle = currentWheelAngle;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(animateWheel);
+        } else {
+          isSpinning = false;
+          handleWin(curPrize, chosenWinner);
+        }
+      }
+      requestAnimationFrame(animateWheel);
+    }
+    spinWheelBtn.addEventListener('click', triggerSpinWheel);
+
+    /* 模式 3：刮刮樂 */
+    const scratchCanvas = document.getElementById('scratchCanvas');
+    const scratchCtx = scratchCanvas.getContext('2d');
+    const scratchWinnerName = document.getElementById('scratchWinnerName');
+    let isScratching = false;
+    let scratchCardReady = false;
+
+    function prepareScratchCard() {
+      const candidates = getEligibleCandidates();
+      if (candidates.length === 0) {
+        scratchWinnerName.textContent = '無候選名單';
+        scratchCardReady = false;
+        return;
+      }
+      const curPrize = state.prizes.find(p => p.id === state.currentPrizeId);
+      if (!curPrize) {
+        scratchWinnerName.textContent = '請先選獎品';
+        return;
+      }
+
+      const winnerIndex = Math.floor(Math.random() * candidates.length);
+      pendingWinnerName = candidates[winnerIndex];
+      scratchWinnerName.textContent = pendingWinnerName;
+      scratchCardReady = true;
+
+      scratchCtx.globalCompositeOperation = 'source-over';
+      const grad = scratchCtx.createLinearGradient(0, 0, 320, 180);
+      grad.addColorStop(0, '#DEC0A2');
+      grad.addColorStop(0.5, '#F3E9DD');
+      grad.addColorStop(1, '#C8A27A');
+      scratchCtx.fillStyle = grad;
+      scratchCtx.fillRect(0, 0, 320, 180);
+
+      scratchCtx.fillStyle = '#6E472A';
+      scratchCtx.font = '500 20px Zen Maru Gothic, sans-serif';
+      scratchCtx.textAlign = 'center';
+      scratchCtx.fillText('✨ 刮開揭曉中獎者 ✨', 160, 95);
+
+      bunnySay('換上一張全新刮刮樂囉！快用手指或滑鼠刮開它～✨');
+    }
+
+    function scratch(e) {
+      if (!isScratching || !scratchCardReady) return;
+      const rect = scratchCanvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      scratchCtx.globalCompositeOperation = 'destination-out';
+      scratchCtx.beginPath();
+      scratchCtx.arc(x, y, 22, 0, Math.PI * 2);
+      scratchCtx.fill();
+      playTickSound();
+
+      checkScratchPercentage();
+    }
+
+    function checkScratchPercentage() {
+      const imgData = scratchCtx.getImageData(0, 0, 320, 180);
+      let cleared = 0;
+      for (let i = 3; i < imgData.data.length; i += 32) {
+        if (imgData.data[i] === 0) cleared++;
+      }
+      const percent = cleared / (imgData.data.length / 32);
+      if (percent > 0.45 && scratchCardReady) {
+        scratchCardReady = false;
+        const curPrize = state.prizes.find(p => p.id === state.currentPrizeId);
+        handleWin(curPrize, pendingWinnerName);
+      }
+    }
+
+    scratchCanvas.addEventListener('mousedown', () => isScratching = true);
+    window.addEventListener('mouseup', () => isScratching = false);
+    scratchCanvas.addEventListener('mousemove', scratch);
+    scratchCanvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
+    window.addEventListener('touchend', () => isScratching = false);
+    scratchCanvas.addEventListener('touchmove', scratch);
+    document.getElementById('resetScratchBtn').addEventListener('click', prepareScratchCard);
+
+    /* 模式 4：開箱翻牌 */
+    const mysteryBoxesGrid = document.getElementById('mysteryBoxesGrid');
+
+    function renderMysteryBoxes() {
+      mysteryBoxesGrid.innerHTML = '';
+      const candidates = getEligibleCandidates();
+      const count = Math.min(Math.max(candidates.length, 3), 6);
+
+      for (let i = 1; i <= count; i++) {
+        const box = document.createElement('div');
+        box.className = 'mystery-box-item';
+        box.innerHTML = `
+          <div class="mystery-box-icon">🎁</div>
+          <div class="mystery-box-num">幸運箱 #${i}</div>
+        `;
+        box.addEventListener('click', () => {
+          if (isSpinning) return;
+          openMysteryBox(box);
+        });
+        mysteryBoxesGrid.appendChild(box);
+      }
+    }
+
+    function openMysteryBox(boxElem) {
+      const candidates = getEligibleCandidates();
+      if (candidates.length === 0) {
+        alert('名單中已無符合資格的待抽參加者！');
+        return;
+      }
+      const curPrize = state.prizes.find(p => p.id === state.currentPrizeId);
+      if (!curPrize) {
+        alert('請先選擇要抽取的獎品！');
+        return;
+      }
+
+      isSpinning = true;
+      playLeverSound();
+      bunnySay('要開箱囉！盒子在劇烈搖晃中～蹦！🎉');
+      boxElem.style.transform = 'scale(1.15) rotate(8deg)';
+
+      setTimeout(() => {
+        const winnerIndex = Math.floor(Math.random() * candidates.length);
+        const chosenWinner = candidates[winnerIndex];
+        pendingWinnerName = chosenWinner;
+        boxElem.querySelector('.mystery-box-icon').textContent = '🎉';
+        boxElem.querySelector('.mystery-box-num').textContent = chosenWinner;
+        isSpinning = false;
+        handleWin(curPrize, chosenWinner);
+      }, 700);
+    }
+
+    /* 通用中獎結算 */
+    function handleWin(curPrize, winner) {
+      playWinSound();
+      triggerConfetti();
+      bunnySay(`太強啦！恭喜【${winner}】抽中【${curPrize.name}】！長耳朵為你拍手！🎉👏`);
+      openWinnerModal(`【${curPrize.level}】${curPrize.name}`, winner);
+    }
+
+    /* 獎品彈窗邏輯 */
+    const prizeModal = document.getElementById('prizeModal');
+    const prizeModalTitle = document.getElementById('prizeModalTitle');
+    const prizePreview = document.getElementById('prizePreview');
+    const inputPrizeLevel = document.getElementById('inputPrizeLevel');
+    const inputPrizeName = document.getElementById('inputPrizeName');
+    const inputPrizeDesc = document.getElementById('inputPrizeDesc');
+    const generateImageBtn = document.getElementById('generateImageBtn');
+    const savePrizeBtn = document.getElementById('savePrizeBtn');
+
+    let currentModalImg = '';
+
+    document.getElementById('openAddPrizeBtn').addEventListener('click', () => {
+      currentEditingPrizeId = null;
+      prizeModalTitle.textContent = '新增獎品欄位';
+      inputPrizeLevel.value = '';
+      inputPrizeName.value = '';
+      inputPrizeDesc.value = '';
+      currentModalImg = generateTransparentProductImage('禮物');
+      prizePreview.src = currentModalImg;
+      openModal('prizeModal');
+      bunnySay('哇！又有新的好禮物要送給大家了嗎？好期待！🎁');
+    });
+
+    stagePrizeBanner.addEventListener('click', () => {
+      if (state.currentPrizeId) {
+        openEditPrizeModal(state.currentPrizeId);
+      }
+    });
+
+    function openEditPrizeModal(id) {
+      const prize = state.prizes.find(p => p.id === id);
+      if (!prize) return;
+      currentEditingPrizeId = id;
+      prizeModalTitle.textContent = '編輯獎品詳情';
+      inputPrizeLevel.value = prize.level || '';
+      inputPrizeName.value = prize.name;
+      inputPrizeDesc.value = prize.desc || '';
+      currentModalImg = prize.img;
+      prizePreview.src = prize.img;
+      openModal('prizeModal');
+    }
+
+    generateImageBtn.addEventListener('click', () => {
+      const name = inputPrizeName.value.trim() || '限定獎品';
+      currentModalImg = generateTransparentProductImage(name);
+      prizePreview.src = currentModalImg;
+      bunnySay('神奇畫筆啟動！依據獎品名稱幫你畫好去背圖示囉～🎨');
+    });
+
+    savePrizeBtn.addEventListener('click', () => {
+      const level = inputPrizeLevel.value.trim() || '幸運獎';
+      const name = inputPrizeName.value.trim();
+      if (!name) {
+        alert('請輸入獎品名稱！');
+        return;
+      }
+      const desc = inputPrizeDesc.value.trim();
+      const img = currentModalImg || generateTransparentProductImage(name);
+
+      if (currentEditingPrizeId) {
+        const target = state.prizes.find(p => p.id === currentEditingPrizeId);
+        if (target) {
+          target.level = level;
+          target.name = name;
+          target.desc = desc;
+          target.img = img;
+        }
+      } else {
+        const newId = 'prize_' + Date.now();
+        state.prizes.push({ id: newId, level, name, desc, img });
+        state.currentPrizeId = newId;
+      }
+
+      saveState();
+      renderAll();
+      closeModal('prizeModal');
+      bunnySay('獎品設定好囉！快來抽這項好禮吧～✨');
+    });
+
+    function deletePrize(id) {
+      state.prizes = state.prizes.filter(p => p.id !== id);
+      delete state.winners[id];
+      if (state.currentPrizeId === id) {
+        state.currentPrizeId = state.prizes[0] ? state.prizes[0].id : null;
+      }
+      saveState();
+      renderAll();
+      bunnySay('獎品已經刪除整理完畢囉！');
+    }
+
+    /* 中獎確認與「不在現場」 */
+    const winnerModal = document.getElementById('winnerModal');
+    const modalPrizeSubtitle = document.getElementById('modalPrizeSubtitle');
+    const winnerNameDisplay = document.getElementById('winnerNameDisplay');
+    const confirmWinnerBtn = document.getElementById('confirmWinnerBtn');
+    const markAbsentBtn = document.getElementById('markAbsentBtn');
+
+    function openWinnerModal(prizeTitle, winner) {
+      modalPrizeSubtitle.textContent = `獲獎項目：${prizeTitle}`;
+      winnerNameDisplay.textContent = winner;
+      openModal('winnerModal');
+    }
+
+    confirmWinnerBtn.addEventListener('click', () => {
+      if (!state.winners[state.currentPrizeId]) {
+        state.winners[state.currentPrizeId] = [];
+      }
+      state.winners[state.currentPrizeId].push(pendingWinnerName);
+      saveState();
+      renderAll();
+      closeModal('winnerModal');
+      bunnySay(`【${pendingWinnerName}】領獎確認！恭喜抱走大獎～🐰👏`);
+    });
+
+    markAbsentBtn.addEventListener('click', () => {
+      if (!state.absentList.includes(pendingWinnerName)) {
+        state.absentList.push(pendingWinnerName);
+      }
+      saveState();
+      renderAll();
+      closeModal('winnerModal');
+      bunnySay(`哎呀…【${pendingWinnerName}】不在現場棄權了，直接開抽下一位！🥺`);
+    });
+
+    /* 彩帶慶祝動畫 */
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiActive = false;
+
+    function resizeCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerConfetti() {
+      confettiParticles = [];
+      const colors = ['#E76F51', '#F4A261', '#E9C46A', '#2A9D8F', '#C8A27A', '#FFFFFF'];
+      for (let i = 0; i < 120; i++) {
+        confettiParticles.push({
+          x: confettiCanvas.width / 2,
+          y: confettiCanvas.height / 2,
+          vx: (Math.random() - 0.5) * 16,
+          vy: (Math.random() - 0.7) * 16,
+          size: Math.random() * 8 + 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 10,
+          gravity: 0.35,
+          opacity: 1
+        });
+      }
+      if (!confettiActive) {
+        confettiActive = true;
+        animateConfetti();
+      }
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      let aliveCount = 0;
+
+      confettiParticles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.rotation += p.vRot;
+        p.opacity -= 0.008;
+
+        if (p.opacity > 0) {
+          aliveCount++;
+          confettiCtx.save();
+          confettiCtx.translate(p.x, p.y);
+          confettiCtx.rotate((p.rotation * Math.PI) / 180);
+          confettiCtx.fillStyle = p.color;
+          confettiCtx.globalAlpha = Math.max(0, p.opacity);
+          confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          confettiCtx.restore();
+        }
+      });
+
+      if (aliveCount > 0) {
+        requestAnimationFrame(animateConfetti);
+      } else {
+        confettiActive = false;
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    }
+
+    /* 公用功能與右下角音量控制 */
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    const volumeBtn = document.getElementById('volumeBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    volumeSlider.addEventListener('input', (e) => {
+      masterVolume = parseFloat(e.target.value);
+      if (masterVolume === 0) {
+        isMuted = true;
+        volumeBtn.textContent = '🔇';
+      } else {
+        isMuted = false;
+        volumeBtn.textContent = masterVolume > 0.5 ? '🔊' : '🔉';
+      }
+    });
+
+    volumeBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      if (isMuted) {
+        volumeBtn.textContent = '🔇';
+        bunnySay('音效已靜音，現在是悄悄話時間～🤫');
+      } else {
+        volumeBtn.textContent = masterVolume > 0.5 ? '🔊' : '🔉';
+        if (masterVolume === 0) {
+          masterVolume = 0.5;
+          volumeSlider.value = 0.5;
+        }
+        bunnySay('音效打開囉！熱鬧的抽獎現場～🎵');
+      }
+    });
+
+    nameInput.addEventListener('input', () => {
+      state.namesRaw = nameInput.value;
+      saveState();
+      updateCandidatesCount();
+      if (state.currentMode === 'wheel') renderWheel();
+      if (state.currentMode === 'boxes') renderMysteryBoxes();
+    });
+
+    document.getElementById('insertSampleNames').addEventListener('click', () => {
+      const samples = [
+        '奶茶小兔', '珍珠波霸', '烏龍拿鐵', '焦糖布丁', '抹茶歐蕾',
+        '海鹽芝士', '芋圓西米露', '蜂蜜柚子', '凍頂烏龍', '伯爵奶蓋',
+        '香草生乳', '紅玉紅茶', '燕麥豆奶', '四季春青', '黑糖鮮奶'
+      ];
+      nameInput.value = samples.join('\n');
+      state.namesRaw = nameInput.value;
+      saveState();
+      updateCandidatesCount();
+      if (state.currentMode === 'wheel') renderWheel();
+      if (state.currentMode === 'boxes') renderMysteryBoxes();
+      bunnySay('示範好朋友們進場囉！隨時可以開抽～🥤');
+    });
+
+    document.getElementById('copyWinnersBtn').addEventListener('click', () => {
+      let text = '🐰【奶茶兔抽獎得獎名單】🧋\n\n';
+      state.prizes.forEach(prize => {
+        text += `🎁【${prize.level || '獎項'}】${prize.name}\n`;
+        const list = state.winners[prize.id] || [];
+        if (list.length === 0) {
+          text += '  (尚無得主)\n';
+        } else {
+          list.forEach((name, i) => {
+            text += `  得主 ${i + 1}：${name}\n`;
+          });
+        }
+        text += '\n';
+      });
+
+      if (state.absentList.length > 0) {
+        text += `🚫 不在現場棄權：${state.absentList.join(', ')}\n`;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert('名單已成功複製至剪貼簿！');
+        bunnySay('名單都幫你複製好囉！快去跟中獎者報喜吧～📋✨');
+      });
+    });
+
+    document.getElementById('resetAllBtn').addEventListener('click', () => {
+      if (confirm('確定要清空所有得獎紀錄與棄權名單嗎？（獎品設定與輸入名單將會保留）')) {
+        state.winners = {};
+        state.absentList = [];
+        saveState();
+        renderAll();
+        bunnySay('活動紀錄都重設囉！全新一輪抽獎開始～🔄');
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !['TEXTAREA', 'INPUT'].includes(e.target.tagName)) {
+        e.preventDefault();
+        if (state.currentMode === 'slot') triggerSpinSlot();
+        if (state.currentMode === 'wheel') triggerSpinWheel();
+      }
+    });
+
+    loadState();
+    nameInput.value = state.namesRaw;
+    renderAll();
+    updateDeviceView();
+    if (state.customBunnyUrl) {
+      applyCustomBunny(state.customBunnyUrl);
+    }
+  </script>
+</body>
+</html>
